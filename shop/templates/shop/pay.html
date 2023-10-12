@@ -1,0 +1,159 @@
+
+{% extends 'shop/basic.html' %}
+{% block title%} Contact Us - DelightFull cafe{% endblock %}
+{% block css %}
+
+ .footer.container-fluid.bg-dark.text-light {
+     position:fixed;
+     bottom:0;
+ }
+ .contact2 {
+   font-family: "Montserrat", sans-serif;
+   color: #8d97ad;
+   font-weight: 300;
+   /* padding: 60px 0; */
+   /* margin-bottom: 170px; */
+   background-position: center top;
+ }
+
+ .contact2 h1,
+ .contact2 h2,
+ .contact2 h3,
+ .contact2 h4,
+ .contact2 h5,
+ .contact2 h6 {
+   color: #3e4555;
+ }
+
+ .contact2 .font-weight-medium {
+   font-weight: 500;
+ }
+
+ .contact2 .subtitle {
+   color: #8d97ad;
+   line-height: 24px;
+ }
+
+ .contact2 .bg-image {
+   background-size: cover;
+   position: relative;
+   display: -webkit-box;
+   display: -webkit-flex;
+   display: -ms-flexbox;
+   display: flex;
+ }
+
+ .contact2 .card.card-shadow {
+     -webkit-box-shadow: 0px 0px 30px rgba(115, 128, 157, 0.1);
+     box-shadow: 0px 0px 30px rgba(61, 109, 214, 0.774);
+ }
+
+ .contact2 .detail-box .round-social {
+   margin-top: 100px;
+ }
+
+ .contact2 .round-social a {
+   background: transparent;
+   margin: 0 7px;
+   padding: 11px 12px;
+ }
+
+ .contact2 .contact-container .links a {
+   color: #8d97ad;
+ }
+
+ .contact2 .contact-container {
+   position: relative;
+   top: 107px;
+ }
+
+ .contact2 .btn-danger-gradiant {
+   background: #ff4d7e;
+   background: -webkit-linear-gradient(legacy-direction(to right), #ff4d7e 0%, #ff6a5b 100%);
+   background: -webkit-gradient(linear, left top, right top, from(#ff4d7e), to(#ff6a5b));
+   background: -webkit-linear-gradient(left, #ff4d7e 0%, #ff6a5b 100%);
+   background: -o-linear-gradient(left, #ff4d7e 0%, #ff6a5b 100%);
+   background: linear-gradient(to right, #ff4d7e 0%, #ff6a5b 100%);
+ }
+
+ .contact2 .btn-danger-gradiant:hover {
+   background: #ff6a5b;
+   background: -webkit-linear-gradient(legacy-direction(to right), #ff6a5b 0%, #ff4d7e 100%);
+   background: -webkit-gradient(linear, left top, right top, from(#ff6a5b), to(#ff4d7e));
+   background: -webkit-linear-gradient(left, #ff6a5b 0%, #ff4d7e 100%);
+   background: -o-linear-gradient(left, #ff6a5b 0%, #ff4d7e 100%);
+   background: linear-gradient(to right, #ff6a5b 0%, #ff4d7e 100%);
+ }
+{% endblock %}
+{% block body %}
+<body>
+    <div class="container mt-5">
+        <div class="row">
+            <!-- Subscription Plan Details -->
+            <div class="col-lg-6 mb-4">
+                <div class="card bg-light">
+                    <div class="card-header bg-primary text-white">
+                        <h4 class="card-title">Payment </h4>
+                    </div>
+                    <div class="card-body">
+                      <form method="post" action="/shop/paymenthandler/">
+                        
+                        <!-- Display plan details -->
+                        <p class="mb-1">Select payment option by cliking on pay now buttun</p>
+                        <input type="submit" class="donate-button btn btn-info" id="pay-btn" value="Pay Now">
+						<!-- <div id="pay-btn" class="donate-button btn btn-info"><i class="fa fa-credit-card"></i> Pay Now</div> -->
+                      </form>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+</main>
+        </div>
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://raw.githubusercontent.com/jerryluk/jquery.autogrow/master/jquery.autogrow-min.js"></script>
+</body>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+	var options = {
+
+	// Enter the Key ID generated from the Dashboard
+	key: "{{ razorpay_merchant_key }}",
+
+	// Amount is in currency subunits.
+	// Default currency is INR. Hence,
+	// 50000 refers to 50000 paise
+	amount: "{{ razorpay_amount }}",
+	currency: "{{ currency }}",
+
+	// Your/store name.
+	name: "DelightFull Cafe",
+
+	// Pass the `id` obtained in the response of Step 1
+	order_id: "{{ razorpay_order_id }}",
+	callback_url: "{{ callback_url }}",
+	};
+
+	// initialise razorpay with the options.
+	var rzp1 = new Razorpay(options);
+
+	// add event listener to the payment button.
+	document.getElementById("pay-btn").onclick = function (e) {
+	rzp1.open();
+	e.preventDefault();
+	};
+</script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+
+{% endblock %}
